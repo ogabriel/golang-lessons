@@ -4,6 +4,7 @@ import "fmt"
 
 func main() {
 	// da pra declarar váriaveis de várias formas diferentes:
+	// _, idade := devolveNomeEIdade()
 	nome, idade := devolveNomeEIdade()
 
 	fmt.Println("Olá, sr.", nome, "a sua idade é", idade)

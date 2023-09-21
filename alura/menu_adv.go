@@ -50,7 +50,14 @@ func lerComando() int {
 func iniciarMonitoramento() {
 	fmt.Println("Monitorando...")
 
-	site := "https://random-status-code.herokuapp.com/"
+	sites := []string{"https://random-status-code.herokuapp.com/", "https://www.alura.com.br", "https://www.caelum.com.br"}
+
+	for _, site := range sites {
+		testaSite(site)
+	}
+}
+
+func testaSite(site string) {
 	resposta, _ := http.Get(site)
 
 	if resposta.StatusCode == 200 {
@@ -58,4 +65,5 @@ func iniciarMonitoramento() {
 	} else {
 		fmt.Println("Site: ", site, "não foi carregado com sucesso, status code: ", resposta.StatusCode)
 	}
+
 }

@@ -3,6 +3,10 @@ package main
 import "fmt"
 import "os"
 import "net/http"
+import "time"
+
+const monitoramento = 2
+const delay = 5
 
 func main() {
 	intro()
@@ -52,9 +56,17 @@ func iniciarMonitoramento() {
 
 	sites := []string{"https://random-status-code.herokuapp.com/", "https://www.alura.com.br", "https://www.caelum.com.br"}
 
-	for _, site := range sites {
-		testaSite(site)
+	for i := 0; i < monitoramento; i++ {
+		for i, site := range sites {
+			fmt.Printf("Testando site ", i, ":", site)
+			testaSite(site)
+		}
+
+		time.Sleep(delay * time.Second)
+		fmt.Println("")
 	}
+
+	fmt.Println("")
 }
 
 func testaSite(site string) {

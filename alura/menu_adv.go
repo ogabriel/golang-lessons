@@ -106,7 +106,6 @@ func leSitesDoArquivo() []string {
 
 		if err == io.EOF {
 			break
-
 		}
 
 		linha = strings.TrimSpace(linha)

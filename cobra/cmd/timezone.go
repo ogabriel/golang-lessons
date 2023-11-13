@@ -5,7 +5,6 @@ package cmd
 
 import (
 	"fmt"
-	"log"
 	"time"
 
 	"github.com/spf13/cobra"
@@ -22,20 +21,25 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("timezone called")
 		timezone := args[0]
+		location, _ := time.LoadLocation(timezone)
+		dateFlag, _ := cmd.Flags().GetString("date")
+		var date string
 
-		currentTime, err := getTimeInTimezone(timezone)
-
-		if err != nil {
-			log.Fatalln("The timezone string is invalid")
+		if dateFlag != "" {
+			date = time.Now().In(location).Format(dateFlag)
+		} else {
+			date = time.Now().In(location).Format(time.RFC3339)[:10]
 		}
-		fmt.Println(currentTime)
+		fmt.Printf("Current date in %v: %v\n", timezone, date)
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(timezoneCmd)
+	// To inherent from rootCmd
+	// timezoneCmd.PersistentFlags().String("date", "", "returns the date in a time zone in a specified format")
+	timezoneCmd.Flags().String("date", "", "Date for which to get the time (format: yyyy-mm-dd)")
 
 	// Here you will define your flags and configuration settings.
 

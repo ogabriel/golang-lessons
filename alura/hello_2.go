@@ -14,5 +14,4 @@ func devolveNomeEIdade() (string, int) {
 	nome := "Gabriel"
 	idade := 21
 	return nome, idade
-
 }
